@@ -388,7 +388,7 @@ export class UpdateQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
                     // todo: duplication zone
                     if (value instanceof Function) { // support for SQL expressions in update query
                         updateColumnAndValues.push(this.escape(column.databaseName) + " = " + value());
-                    } else if ( (value === undefined || value === null) && this.connection.driver instanceof AbstractSqliteDriver ) {
+                    } else if ( value == null && this.connection.driver instanceof AbstractSqliteDriver ) {
                         // If value is null and we are working with SQLite simply set the null value directly into the query instead of passing it on the paramters.
                         // This is to avoid underlying drivers to complain avout null params. See  https://github.com/typeorm/typeorm/issues/3640
                         updateColumnAndValues.push(this.escape(column.databaseName) + " = NULL");
@@ -438,7 +438,7 @@ export class UpdateQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
                 // todo: duplication zone
                 if (value instanceof Function) { // support for SQL expressions in update query
                     updateColumnAndValues.push(this.escape(key) + " = " + value());
-                } else if ( (value === undefined || value === null) && this.connection.driver instanceof AbstractSqliteDriver ) {
+                } else if ( value == null && this.connection.driver instanceof AbstractSqliteDriver ) {
                     // If value is null and we are working with SQLite simply set the null value directly into the query instead of passing it on the paramters.
                     // This is to avoid underlying drivers to complain avout null params. See  https://github.com/typeorm/typeorm/issues/3640
                     updateColumnAndValues.push(this.escape(key) + " = NULL");
